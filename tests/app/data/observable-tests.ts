@@ -6,6 +6,7 @@ import dependencyObservable = require("ui/core/dependency-observable");
 import TKUnit = require("../TKUnit");
 import types = require("utils/types");
 import proxy = require("ui/core/proxy");
+import {ObservableArray} from "data/observable-array";
 
 var TESTED_NAME = "tested";
 class TestObservable extends observable.Observable {
@@ -524,4 +525,12 @@ export function test_CorrectPropertyValueAfterUsingWrappedValue() {
     testObservable.set("property1", wrappedArray);
 
     TKUnit.assertEqual(testObservable.get("property1"), testArray, "WrappedValue is used only to execute property change logic and unwrapped value should be used as proeprty value.");
+}
+
+export function test_NestedObservablesWithObservableArrayShouldNotCrash() {
+    let someObservableArray = new ObservableArray<any>();
+    let testObservable = observable.Observable.fromJSON({
+        firstProp: "test string",
+        secondProp: someObservableArray
+    }, true);
 }

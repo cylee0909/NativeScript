@@ -72,6 +72,12 @@ declare module "data/observable" {
 
         /**
          * Creates an Observable instance and sets its properties according to the supplied JSON object.
+         * @param recursive - When true all nested objects (except arrays and functions) from supplied JSON will also be created as Observable. When set to false (default value) will create properties and set their values (will not create Observable instances for nested objects). 
+         */
+        public static fromJSON(json: any, recursive?: boolean): Observable;
+
+        /**
+         * [Deprecated please use static functions fromJSON instead] Creates an Observable instance and sets its properties according to the supplied JSON object.
          */
         constructor(json?: any);
 
